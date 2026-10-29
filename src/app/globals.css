@@ -1,26 +1,273 @@
 @import "tailwindcss";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
+/*
+ * Chalkadoo visual system.
+ * Light = whiteboard (marker ink on white). Dark = chalkboard (chalk on slate-green).
+ * Comic touches: thick ink outlines, hard offset shadows, highlighter yellow.
+ */
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+:root {
+  --bg: #f6f5ef;
+  --grid: rgb(30 30 36 / 0.055);
+  --surface: #ffffff;
+  --surface-2: #fbfaf4;
+  --ink: #1e1e24;
+  --ink-muted: #5b5b66;
+  --line: #1e1e24;
+  --shadow: #1e1e24;
+  --marker-blue: #1f4fd1;
+  --marker-red: #d6322d;
+  --marker-green: #198049;
+  --marker-purple: #7a3fc4;
+  --highlight: #ffd23f;
+  --underline: rgb(255 210 63 / 0.75);
+  --on-highlight: #1e1e24;
+  --correct-bg: #dff5e7;
+  --wrong-bg: #fde4e2;
+  --hint-bg: #fff6cc;
+  --scale-metal: #8a8a96;
+  color-scheme: light;
 }
 
 @media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+  :root:not([data-theme="light"]) {
+    --bg: #1d2924;
+    --grid: rgb(255 255 255 / 0.035);
+    --surface: #24332c;
+    --surface-2: #2a3a32;
+    --ink: #f1efe6;
+    --ink-muted: #b4bcb4;
+    --line: #e9e6da;
+    --shadow: #0e1512;
+    --marker-blue: #8fb6ff;
+    --marker-red: #ff9a90;
+    --marker-green: #8ee3ab;
+    --marker-purple: #d0b0ff;
+    --highlight: #ffe27a;
+    --underline: rgb(255 226 122 / 0.28);
+    --on-highlight: #1e1e24;
+    --correct-bg: #2d6a48;
+    --wrong-bg: #6e3434;
+    --hint-bg: #57502a;
+    --scale-metal: #c9cfc7;
+    color-scheme: dark;
   }
 }
 
+:root[data-theme="dark"] {
+  --bg: #1d2924;
+  --grid: rgb(255 255 255 / 0.035);
+  --surface: #24332c;
+  --surface-2: #2a3a32;
+  --ink: #f1efe6;
+  --ink-muted: #b4bcb4;
+  --line: #e9e6da;
+  --shadow: #0e1512;
+  --marker-blue: #8fb6ff;
+  --marker-red: #ff9a90;
+  --marker-green: #8ee3ab;
+  --marker-purple: #d0b0ff;
+  --highlight: #ffe27a;
+  --underline: rgb(255 226 122 / 0.28);
+  --on-highlight: #1e1e24;
+  --correct-bg: #2d6a48;
+  --wrong-bg: #6e3434;
+  --hint-bg: #57502a;
+  --scale-metal: #c9cfc7;
+  color-scheme: dark;
+}
+
+@theme inline {
+  --color-bg: var(--bg);
+  --color-surface: var(--surface);
+  --color-surface-2: var(--surface-2);
+  --color-ink: var(--ink);
+  --color-ink-muted: var(--ink-muted);
+  --color-line: var(--line);
+  --color-blue: var(--marker-blue);
+  --color-red: var(--marker-red);
+  --color-green: var(--marker-green);
+  --color-purple: var(--marker-purple);
+  --color-highlight: var(--highlight);
+  --color-on-highlight: var(--on-highlight);
+  --color-correct: var(--correct-bg);
+  --color-wrong: var(--wrong-bg);
+  --color-hint: var(--hint-bg);
+  --font-sans: var(--font-body);
+  --font-hand: var(--font-hand);
+  --font-comic: var(--font-comic);
+}
+
+html {
+  -webkit-text-size-adjust: 100%;
+}
+
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  background-color: var(--bg);
+  background-image:
+    linear-gradient(var(--grid) 1px, transparent 1px),
+    linear-gradient(90deg, var(--grid) 1px, transparent 1px);
+  background-size: 28px 28px;
+  color: var(--ink);
+  font-family: var(--font-body), system-ui, sans-serif;
+}
+
+:focus-visible {
+  outline: 3px solid var(--marker-blue);
+  outline-offset: 3px;
+}
+
+@layer components {
+  /* A comic panel: thick ink outline + hard offset shadow. */
+  .panel {
+    background: var(--surface);
+    border: 2.5px solid var(--line);
+    border-radius: 18px 22px 16px 24px / 22px 16px 24px 18px;
+    box-shadow: 5px 5px 0 var(--shadow);
+  }
+
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    min-height: 48px;
+    padding: 0.6rem 1.4rem;
+    font-weight: 800;
+    font-size: 1.05rem;
+    border: 2.5px solid var(--line);
+    border-radius: 14px 18px 14px 18px / 18px 14px 18px 14px;
+    box-shadow: 4px 4px 0 var(--shadow);
+    transition: transform 0.08s ease, box-shadow 0.08s ease, background-color 0.15s;
+    cursor: pointer;
+    user-select: none;
+  }
+  .btn:hover:not(:disabled) {
+    transform: translate(-1px, -1px);
+    box-shadow: 5px 5px 0 var(--shadow);
+  }
+  .btn:active:not(:disabled) {
+    transform: translate(3px, 3px);
+    box-shadow: 1px 1px 0 var(--shadow);
+  }
+  .btn:disabled {
+    opacity: 0.45;
+    cursor: not-allowed;
+    box-shadow: 2px 2px 0 var(--shadow);
+  }
+  .btn-primary {
+    background: var(--highlight);
+    color: var(--on-highlight);
+  }
+  .btn-ghost {
+    background: var(--surface);
+    color: var(--ink);
+  }
+
+  /* Hand-drawn marker underline for headings. */
+  .marker-underline {
+    background-image: linear-gradient(
+      transparent 62%,
+      var(--underline) 62%,
+      var(--underline) 92%,
+      transparent 92%
+    );
+    padding: 0 0.15em;
+  }
+
+  .hand {
+    font-family: var(--font-hand), cursive;
+  }
+  .comic {
+    font-family: var(--font-comic), var(--font-hand), cursive;
+    letter-spacing: 0.04em;
+  }
+
+  /* Lesson prose written by MDX. */
+  .lesson-prose {
+    font-size: 1.125rem;
+    line-height: 1.7;
+  }
+  .lesson-prose > * + * {
+    margin-top: 0.9em;
+  }
+  .lesson-prose h2 {
+    font-family: var(--font-hand), cursive;
+    font-weight: 700;
+    font-size: 2rem;
+    line-height: 1.15;
+  }
+  .lesson-prose strong {
+    font-weight: 800;
+  }
+  .lesson-prose em {
+    color: var(--marker-blue);
+    font-style: normal;
+    font-weight: 700;
+  }
+  .lesson-prose ul {
+    list-style: none;
+    padding-left: 0;
+  }
+  .lesson-prose ul > li {
+    position: relative;
+    padding-left: 1.6em;
+  }
+  .lesson-prose ul > li + li {
+    margin-top: 0.4em;
+  }
+  .lesson-prose ul > li::before {
+    content: "✎";
+    position: absolute;
+    left: 0;
+    color: var(--marker-red);
+  }
+  .lesson-prose blockquote {
+    font-family: var(--font-hand), cursive;
+    font-size: 1.6rem;
+    font-weight: 700;
+    line-height: 1.3;
+    color: var(--marker-red);
+    border-left: 5px solid var(--marker-red);
+    padding: 0.2em 0 0.2em 0.8em;
+    transform: rotate(-0.6deg);
+  }
+  .lesson-prose .katex-display {
+    font-size: 1.35em;
+    margin: 0.6em 0;
+    overflow-x: auto;
+    overflow-y: hidden;
+    padding: 0.2em 0;
+  }
+}
+
+@keyframes pop-in {
+  0% {
+    transform: scale(0.92);
+    opacity: 0;
+  }
+  70% {
+    transform: scale(1.02);
+    opacity: 1;
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+@keyframes wiggle {
+  0%, 100% { transform: translateX(0); }
+  25% { transform: translateX(-6px); }
+  75% { transform: translateX(6px); }
+}
+@keyframes bounce-doo {
+  0%, 100% { transform: translateY(0) rotate(-4deg); }
+  50% { transform: translateY(-10px) rotate(4deg); }
+}
+.anim-pop { animation: pop-in 0.28s ease-out both; }
+.anim-wiggle { animation: wiggle 0.3s ease-in-out 2; }
+.anim-bounce { animation: bounce-doo 0.9s ease-in-out infinite; }
+
+@media (prefers-reduced-motion: reduce) {
+  .anim-pop, .anim-wiggle, .anim-bounce { animation: none; }
+  .btn { transition: none; }
 }

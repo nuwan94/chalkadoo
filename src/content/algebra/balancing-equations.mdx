@@ -1,0 +1,170 @@
+<Step>
+
+## An equation is a balance
+
+Every equation is a promise: *the left side weighs exactly the same as the right side.*
+
+Picture it as a scale. Each blue box is a mystery number we call $x$. Each yellow counter weighs 1.
+
+$$
+x + 3 = 7
+$$
+
+One mystery box and three counters on the left. Seven counters on the right. And the scale is perfectly level.
+
+<DooSays>Technically, this is a *platform* scale, not a hanging one. I'll allow it. This once.</DooSays>
+
+</Step>
+
+<Step>
+
+## Your turn: free the x
+
+Here's $x + 3 = 7$ on the scale. Lift things off until $x$ is alone, **without** letting the scale tip.
+
+<BalanceScale left={[1, 3]} right={[0, 7]} />
+
+</Step>
+
+<Step>
+
+## The golden rule
+
+To keep it level, you took 3 off **both** sides. That's the whole trick:
+
+> Whatever you do to one side, do to the other.
+
+$$
+x + 3 - 3 = 7 - 3 \quad\Rightarrow\quad x = 4
+$$
+
+<MultipleChoice
+  prompt="Which move keeps $x + 5 = 9$ balanced and gets $x$ closer to being alone?"
+  options={[
+    "Subtract 5 from the left side only",
+    "Subtract 5 from both sides",
+    "Add 5 to both sides",
+    "Subtract 9 from both sides",
+  ]}
+  answer={1}
+  hint="You want to cancel the $+5$. Whatever happens on the left has to happen on the right too."
+  explanation="$x + 5 - 5 = 9 - 5$, so $x = 4$. Both sides lose 5 and the scale stays level."
+/>
+
+</Step>
+
+<Step>
+
+## Solve it without the scale
+
+No blocks this time. Just you and the golden rule.
+
+<NumericAnswer
+  prompt="Solve $x + 8 = 15$."
+  label="$x =$"
+  answer={7}
+  hint="Take 8 off both sides."
+  explanation="$x + 8 - 8 = 15 - 8$, so $x = 7$. Check: $7 + 8 = 15$ ✓"
+/>
+
+<NumericAnswer
+  prompt="Now a sneaky one: solve $x - 4 = 9$."
+  label="$x =$"
+  answer={13}
+  hint="Here $x$ has had 4 taken away. Undo that by adding 4 to both sides."
+  explanation="$x - 4 + 4 = 9 + 4$, so $x = 13$. Undo a subtraction with an addition."
+/>
+
+</Step>
+
+<Step>
+
+## More than one x
+
+What about $2x + 1 = 7$? Two mystery boxes, and they weigh the same.
+
+Lift off the counters first. Then split both sides into equal groups.
+
+<BalanceScale left={[2, 1]} right={[0, 7]} />
+
+</Step>
+
+<Step>
+
+## Undo things in reverse
+
+To build $2x + 1$ from $x$, you **doubled** it and **then added** 1. To undo it, go in reverse, like taking off your shoes before your socks.
+
+<OrderSteps
+  prompt="Put the steps for solving $3x + 2 = 14$ in order."
+  items={[
+    "Start: $3x + 2 = 14$",
+    "Subtract 2 from both sides: $3x = 12$",
+    "Divide both sides by 3: $x = 4$",
+    "Check: $3 \\times 4 + 2 = 14$ ✓",
+  ]}
+  hint="Deal with the $+2$ before you divide."
+  explanation="Undo the last thing that was done to $x$ first. Then check your answer by putting it back into the equation."
+/>
+
+</Step>
+
+<Step>
+
+## Try one with a minus
+
+<NumericAnswer
+  prompt="Solve $5x - 3 = 22$."
+  label="$x =$"
+  answer={5}
+  hint="First add 3 to both sides. Then divide both sides by 5."
+  explanation="$5x - 3 + 3 = 22 + 3$ gives $5x = 25$. Then $x = 25 \div 5 = 5$."
+/>
+
+<DooSays mood="thinking">You can't put a "minus 3" on a real scale. That's what the next lesson is for. *Balloons* are involved.</DooSays>
+
+</Step>
+
+<Step>
+
+## x on both sides
+
+Equations can have mystery boxes on **both** pans, like $3x + 2 = x + 8$.
+
+Lift an $x$ off each side first. Then carry on as usual.
+
+<BalanceScale left={[3, 2]} right={[1, 8]} />
+
+</Step>
+
+<Step>
+
+## Genius level: no numbers at all
+
+Mathematicians like to solve *every* problem at once. Suppose $x + a = b$, where $a$ and $b$ could be any numbers at all.
+
+<ExpressionAnswer
+  prompt="Make $x$ the subject of $x + a = b$. In other words, write $x$ using only $a$ and $b$."
+  label="$x =$"
+  answer="b - a"
+  variables={["a", "b"]}
+  hint="Same move as always: take $a$ off both sides."
+  explanation="$x + a - a = b - a$, so $x = b - a$. Put in $a = 3$ and $b = 7$ and you get our very first answer, $x = 4$."
+/>
+
+<DooSays>Congratulations, you just wrote a *formula*. I wrote my first one at age four. It was about the optimal ratio of crackers to cheese.</DooSays>
+
+</Step>
+
+<Step>
+
+## What you've learned
+
+- An equation is a balance: both sides weigh the same.
+- **The golden rule:** whatever you do to one side, do to the other.
+- Undo operations in reverse: deal with adding and subtracting first, then dividing.
+- Always check by putting your answer back into the equation.
+
+<DooSays mood="happy">Press **Finish** to collect your XP. You've earned it. Mostly.</DooSays>
+
+</Step>
